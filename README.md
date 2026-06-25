@@ -95,6 +95,8 @@ Settings
 → GitHub Actions
 ```
 
+이 설정은 최초 배포 전에 반드시 한 번 직접 수행해야 합니다. 저장소에 워크플로 파일만 업로드하고 Pages를 활성화하지 않으면 `Get Pages site failed` 또는 `Not Found` 오류가 발생합니다.
+
 ### 3. 자동 배포 확인
 
 `main` 브랜치에 push하면 GitHub Actions가 다음 작업을 수행합니다.
@@ -113,6 +115,33 @@ npm ci
 ```text
 https://jjine-98.github.io/MES_DASHBOARD/
 ```
+
+## `Get Pages site failed` 오류 해결
+
+다음과 같은 오류는 GitHub Pages 사이트가 아직 활성화되지 않았을 때 발생합니다.
+
+```text
+Error: Get Pages site failed.
+Please verify that the repository has Pages enabled and configured
+to build using GitHub Actions.
+Error: Not Found
+```
+
+다음 순서대로 처리합니다.
+
+1. [MES_DASHBOARD 저장소](https://github.com/JJINE-98/MES_DASHBOARD)로 이동합니다.
+2. 저장소 상단의 **Settings**를 선택합니다.
+3. 왼쪽 메뉴의 **Pages**를 선택합니다.
+4. **Build and deployment** 영역에서 **Source**를 `GitHub Actions`로 선택합니다.
+5. 설정 후 저장소의 **Actions** 탭으로 이동합니다.
+6. 실패한 `Deploy to GitHub Pages` 워크플로를 선택합니다.
+7. **Re-run all jobs**를 실행합니다.
+
+Settings 메뉴가 보이지 않는다면 해당 저장소의 관리자 권한이 있는 계정으로 로그인했는지 확인해야 합니다.
+
+저장소가 비공개인 경우에는 GitHub 요금제에 따라 Pages 사용이 제한될 수 있습니다. GitHub Free 계정이라면 저장소를 공개 상태로 전환한 뒤 다시 확인하십시오.
+
+워크플로의 `actions/configure-pages`에 `enablement: true`를 단순 추가하는 방식은 권장하지 않습니다. 이 옵션으로 Pages를 자동 활성화하려면 기본 `GITHUB_TOKEN`이 아닌 별도의 Personal Access Token과 추가 권한이 필요합니다.
 
 ## API 키 보안
 
